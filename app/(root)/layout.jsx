@@ -1,16 +1,28 @@
+import { auth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 import "../globals.css";
+import prismaDb from "@/lib/prismadb";
 
 export const metadata = {
   title: "Admin Dashboard",
   description: "Explore the future",
 };
 
-export default function RootLayout({ children }) {
-  return (
-    <>
-      <h1>Navbar</h1>
-      {children}
-      <h1>Footer</h1>
-    </>
-  );
+export default async function SetupLayout({ children }) {
+  const { userId } = auth();
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
+  const store = await prismaDb.store.findFirst({
+    where: {
+      userId,
+    },
+  });
+
+  if (store) {
+    redirect(`/${store.id}`);
+  }
+
+  return <>{children}</>;
 }
