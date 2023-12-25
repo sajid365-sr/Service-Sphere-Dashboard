@@ -18,7 +18,7 @@ const Modal = ({ title, description, isOpen, onClose, children }) => {
       dispatch(onClose());
     }
   };
-  console.log(isOpen);
+
   return (
     <Dialog open={isOpen} onOpenChange={onChange}>
       <DialogContent>
