@@ -4,9 +4,10 @@ import React from "react";
 const DashboardPage = async ({ params }) => {
   const store = await prismaDb.store.findFirst({
     where: {
-      id: params.storeId,
+      id: params.storeid,
     },
   });
+
   return <div>Active Store: {store?.name};</div>;
 };
 
