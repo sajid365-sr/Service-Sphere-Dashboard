@@ -10,12 +10,14 @@ import {
 } from "@/components/ui/dialog";
 import { useDispatch } from "react-redux";
 
-const Modal = ({ title, description, isOpen, onClose, children }) => {
+const Modal = ({ title, description, isOpen, store, onClose, children }) => {
   const dispatch = useDispatch();
 
   const onChange = (open) => {
-    if (!open) {
+    if (!open && store) {
       dispatch(onClose());
+    } else if (!open) {
+      onClose();
     }
   };
 

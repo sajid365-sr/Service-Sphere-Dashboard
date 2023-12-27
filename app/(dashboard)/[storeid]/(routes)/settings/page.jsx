@@ -12,7 +12,7 @@ const SettingsPage = async ({ params }) => {
 
   const store = await prismaDb.store.findFirst({
     where: {
-      id: params.storeid,
+      id: params.storeId,
       userId,
     },
   });
