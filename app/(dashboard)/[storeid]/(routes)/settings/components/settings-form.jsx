@@ -24,6 +24,7 @@ import axios from "axios";
 import AlertModal from "@/components/modals/alert-modal";
 import { useDispatch } from "react-redux";
 import { onOpen } from "@/redux/features/modalSlice";
+import ApiAlert from "@/components/ui/api-alert";
 
 const SettingsFrom = ({ initialData }) => {
   const params = useParams();
@@ -121,6 +122,11 @@ const SettingsFrom = ({ initialData }) => {
           </Button>
         </form>
       </Form>
+      <Separator />
+      <ApiAlert
+        title="NEXT_PUBLIC_API_URL"
+        description={`${origin}/api/${params.storeId}`}
+      />
     </>
   );
 };
