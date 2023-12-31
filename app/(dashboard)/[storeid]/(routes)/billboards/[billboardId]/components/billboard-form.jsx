@@ -25,8 +25,9 @@ import { Input } from "@/components/ui/input";
 import AlertModal from "@/components/modals/alert-modal";
 import ApiAlert from "@/components/ui/api-alert";
 import UseOrigin from "@/hooks/use-origin";
+import ImageUpload from "@/components/ui/image-upload";
 
-const SettingsFrom = ({ initialData }) => {
+const BillboardFrom = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
   const origin = UseOrigin();
@@ -35,8 +36,16 @@ const SettingsFrom = ({ initialData }) => {
   const [loading, setLoading] = useState(false);
 
   const formSchema = z.object({
-    name: z.string().min(1),
+    label: z.string().min(1),
+    imageUrl: z.string().min(1),
   });
+
+  const title = initialData ? "Edit Billboard" : "Create Billboard";
+  const description = initialData ? "Edit Billboard" : "Add a new billboard";
+  const toastMessage = initialData
+    ? "Billboard updated."
+    : "Billboard created.";
+  const action = initialData ? "Save changes" : "Create";
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -46,10 +55,10 @@ const SettingsFrom = ({ initialData }) => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      await axios.patch(`/api/stores/${params.storeId}`, data);
+      await axios.patch(`/api/stores/${params.billboardId}`, data);
 
       router.refresh();
-      toast.success("Store updated");
+      toast.success("Billboard updated");
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
@@ -81,17 +90,19 @@ const SettingsFrom = ({ initialData }) => {
         loading={loading}
       />
       <div className="flex items-center justify-between">
-        <Heading title="Settings" description="Manage store preferences" />
-        <Button
-          disabled={loading}
-          variant="destructive"
-          size="sm"
-          onClick={() => {
-            setOpen(true);
-          }}
-        >
-          <Trash className="h-4 w-4" />
-        </Button>
+        <Heading title={title} description={description} />
+        {initialData && (
+          <Button
+            disabled={loading}
+            variant="destructive"
+            size="sm"
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            <Trash className="h-4 w-4" />
+          </Button>
+        )}
       </div>
       <Separator />
       <Form {...form}>
@@ -99,17 +110,35 @@ const SettingsFrom = ({ initialData }) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 w-full"
         >
+          <FormField
+            control={form.control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Background Image</FormLabel>
+                <FormControl>
+                  <ImageUpload
+                    value={field.value ? [field.value] : []}
+                    disabled={loading}
+                    onChange={(url) => field.onChange(url)}
+                    onRemove={() => field.onChange("")}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
-              name="name"
+              name="label"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Label</FormLabel>
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Store name"
+                      placeholder="Billboard label"
                       {...field}
                     />
                   </FormControl>
@@ -119,17 +148,13 @@ const SettingsFrom = ({ initialData }) => {
             />
           </div>
           <Button disabled={loading} type="submit">
-            Save changes
+            {action}
           </Button>
         </form>
       </Form>
       <Separator />
-      <ApiAlert
-        title="NEXT_PUBLIC_API_URL"
-        description={`${origin}/api/${params.storeId}`}
-      />
     </>
   );
 };
 
-export default SettingsFrom;
+export default BillboardFrom;
