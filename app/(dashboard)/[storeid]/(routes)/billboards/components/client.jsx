@@ -1,13 +1,15 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import Heading from "@/components/ui/heading";
-import { Separator } from "@/components/ui/separator";
 import { Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import React from "react";
 
-const BillBoardClient = () => {
+import { Button } from "@/components/ui/button";
+import { DataTable } from "@/components/ui/data-table";
+import Heading from "@/components/ui/heading";
+import { Separator } from "@/components/ui/separator";
+import { billboardColumns } from "./columns";
+
+const BillBoardClient = ({ data }) => {
   const router = useRouter();
   const params = useParams();
 
@@ -15,7 +17,7 @@ const BillBoardClient = () => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title="Billboard (0)"
+          title={`Billboards ${data?.length}`}
           description="Manage billboards for your store"
         />
         <Button
@@ -26,6 +28,7 @@ const BillBoardClient = () => {
         </Button>
       </div>
       <Separator />
+      <DataTable columns={billboardColumns} data={data} searchKey="label" />
     </>
   );
 };

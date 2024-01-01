@@ -51,7 +51,7 @@ const ImageUpload = ({ disabled, onChange, onRemove, value }) => {
       </div>
       <CldUploadWidget onUpload={onUpload} uploadPreset="jdwwsf7d">
         {({ open }) => {
-          const onClick = () => {
+          const openWidget = () => {
             open();
           };
 
@@ -60,7 +60,7 @@ const ImageUpload = ({ disabled, onChange, onRemove, value }) => {
               type="button"
               disabled={disabled}
               variant="secondary"
-              onClick={onClick}
+              onClick={openWidget}
             >
               <ImagePlus className="h-4 w-4 mr-2" />
               Upload an Image
