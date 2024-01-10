@@ -47,7 +47,7 @@ export async function POST(req, { params }) {
   }
 }
 
-/* ====================== GET ALL BILLBOARD ====================== */
+/* ====================== GET ALL BILLBOARDS ====================== */
 export async function GET(req, { params }) {
   try {
     if (!params.storeId) {
@@ -56,7 +56,10 @@ export async function GET(req, { params }) {
 
     const billboards = await prismaDb.store.findMany({
       where: {
-        storeId: params.storeId,
+        id: params.storeId,
+      },
+      include: {
+        billboards: true,
       },
     });
 

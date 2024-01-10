@@ -24,6 +24,7 @@ export async function GET(req, { params }) {
 
 /* ====================== UPDATE INDIVIDUAL BILLBOARD ====================== */
 export async function PATCH(req, { params }) {
+  console.log(params.billBoardId);
   try {
     const { userId } = auth();
     const { label, imageUrl } = await req.json();
@@ -53,9 +54,9 @@ export async function PATCH(req, { params }) {
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    const billboard = await prismaDb.billBoard.updateMany({
+    const billboard = await prismaDb.billBoard.update({
       where: {
-        id: params.billBoardId,
+        id: params.billboardId,
       },
       data: {
         label,
@@ -78,7 +79,7 @@ export async function DELETE(req, { params }) {
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
     }
-    if (!params.billBoardId) {
+    if (!params.billboardId) {
       return new NextResponse("Billboard id is required", { status: 400 });
     }
 
@@ -93,9 +94,9 @@ export async function DELETE(req, { params }) {
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    const billboard = await prismaDb.billBoard.deleteMany({
+    const billboard = await prismaDb.billBoard.delete({
       where: {
-        id: params.billBoardId,
+        id: params.billboardId,
       },
     });
 

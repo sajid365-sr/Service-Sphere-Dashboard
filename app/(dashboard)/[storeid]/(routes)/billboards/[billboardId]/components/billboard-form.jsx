@@ -22,17 +22,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import AlertModal from "@/components/modals/alert-modal";
-import ApiAlert from "@/components/ui/api-alert";
-import UseOrigin from "@/hooks/use-origin";
 import ImageUpload from "@/components/ui/image-upload";
 
 const BillboardFrom = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
-  const origin = UseOrigin();
-
-  // router.refresh();
-  console.log(router);
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -66,8 +60,9 @@ const BillboardFrom = ({ initialData }) => {
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
 
-      router.refresh();
       router.push(`/${params.storeId}/billboards`);
+      router.refresh();
+
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");
@@ -83,15 +78,18 @@ const BillboardFrom = ({ initialData }) => {
         `/api/${params.storeId}/billboards/${params.billboardId}`
       );
 
-      router.refresh();
-      router.push("/");
       toast.success("billboard deleted");
+      setOpen(false);
+      router.push(`/${params.storeId}/billboards`);
+      router.refresh();
     } catch (error) {
       toast.error(
         "Make sure you remove all categories using this billboard first."
       );
+      setOpen(false);
     } finally {
       setLoading(false);
+      setOpen(false);
     }
   };
 
@@ -166,7 +164,6 @@ const BillboardFrom = ({ initialData }) => {
           </Button>
         </form>
       </Form>
-      <Separator />
     </>
   );
 };

@@ -8,6 +8,7 @@ import { DataTable } from "@/components/ui/data-table";
 import Heading from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { billboardColumns } from "./columns";
+import ApiList from "@/components/ui/api-list";
 
 const BillBoardClient = ({ data }) => {
   const router = useRouter();
@@ -29,6 +30,9 @@ const BillBoardClient = ({ data }) => {
       </div>
       <Separator />
       <DataTable columns={billboardColumns} data={data} searchKey="label" />
+      <Heading title="API" description="API call for billboard" />
+      <Separator />
+      <ApiList entityName="billboards" entityIdName="billboardId" />
     </>
   );
 };
