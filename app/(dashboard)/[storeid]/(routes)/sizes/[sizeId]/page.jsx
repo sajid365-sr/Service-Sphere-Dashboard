@@ -1,15 +1,15 @@
 import prismaDb from "@/lib/prismadb";
 import React from "react";
-import BillboardFrom from "./components/billboard-form";
+import SizeForm from "./components/size-form";
 
 const BillBoardPage = async ({ params }) => {
-  const { billboardId } = params;
+  const { sizeId } = params;
 
-  let billBoard;
-  if (params.billboardId !== "new") {
-    billBoard = await prismaDb.billboard.findUnique({
+  let size;
+  if (params.sizeId !== "new") {
+    size = await prismaDb.size.findUnique({
       where: {
-        id: billboardId,
+        id: sizeId,
       },
     });
   }
@@ -17,7 +17,7 @@ const BillBoardPage = async ({ params }) => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillboardFrom initialData={billBoard} />
+        <SizeForm initialData={size} />
       </div>
     </div>
   );

@@ -1,15 +1,15 @@
 import prismaDb from "@/lib/prismadb";
 import React from "react";
-import BillboardFrom from "./components/billboard-form";
+import ColorForm from "./components/color-form";
 
 const BillBoardPage = async ({ params }) => {
-  const { billboardId } = params;
+  const { colorId } = params;
 
-  let billBoard;
-  if (params.billboardId !== "new") {
-    billBoard = await prismaDb.billboard.findUnique({
+  let color;
+  if (params.colorId !== "new") {
+    color = await prismaDb.color.findUnique({
       where: {
-        id: billboardId,
+        id: colorId,
       },
     });
   }
@@ -17,7 +17,7 @@ const BillBoardPage = async ({ params }) => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillboardFrom initialData={billBoard} />
+        <ColorForm initialData={color} />
       </div>
     </div>
   );

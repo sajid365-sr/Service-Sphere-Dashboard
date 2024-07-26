@@ -2,20 +2,20 @@ import prismaDb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-/* ====================== POST A BILLBOARD ====================== */
+/* ====================== CREATE SIZE ====================== */
 export async function POST(req, { params }) {
   try {
     const { userId } = auth();
-    const { label, imageUrl } = await req.json();
+    const { name, value } = await req.json();
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
     }
-    if (!label) {
-      return new NextResponse("Label is required", { status: 400 });
+    if (!name) {
+      return new NextResponse("Name is required", { status: 400 });
     }
-    if (!imageUrl) {
-      return new NextResponse("Image URL is required", { status: 400 });
+    if (!value) {
+      return new NextResponse("Value is required", { status: 400 });
     }
 
     if (!params.storeId) {
@@ -32,40 +32,37 @@ export async function POST(req, { params }) {
     if (!storeByUserId) {
       return new NextResponse("Unauthorized", { status: 403 });
     }
-    const billboard = await prismaDb.billboard.create({
+    const size = await prismaDb.size.create({
       data: {
-        label,
-        imageUrl,
+        name,
+        value,
         storeId: params.storeId,
       },
     });
 
-    return NextResponse.json(billboard);
+    return NextResponse.json(size);
   } catch (error) {
-    console.log("[BILLBOARDS_POST]", error);
+    console.log("[SIZES_POST]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
 
-/* ====================== GET ALL BILLBOARDS ====================== */
+/* ====================== GET ALL SIZES ====================== */
 export async function GET(req, { params }) {
   try {
     if (!params.storeId) {
       return new NextResponse("Store id is required", { status: 400 });
     }
 
-    const billboards = await prismaDb.store.findMany({
+    const sizes = await prismaDb.size.findMany({
       where: {
         id: params.storeId,
       },
-      include: {
-        billboards: true,
-      },
     });
 
-    return NextResponse.json(billboards);
+    return NextResponse.json(sizes);
   } catch (error) {
-    console.log("[BILLBOARDS_GET]", error);
+    console.log("[SIZES_GET]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
