@@ -133,11 +133,7 @@ const BillboardFrom = ({ initialData }) => {
                     value={field.value ? [field.value] : []}
                     disabled={loading}
                     onChange={(url) => field.onChange(url)}
-                    onRemove={(url) =>
-                      field.onChange([
-                        ...field.value.filter((current) => current.url !== url),
-                      ])
-                    }
+                    onRemove={(url) => field.onChange("")}
                   />
                 </FormControl>
                 <FormMessage />

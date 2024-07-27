@@ -1,6 +1,5 @@
 "use client";
 
-import { images } from "@/next.config";
 import CellAction from "./cell-action";
 
 // This type is used to define the shape of our data.

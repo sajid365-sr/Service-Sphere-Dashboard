@@ -61,8 +61,6 @@ const ProductForm = ({ initialData, categories, sizes, colors }) => {
     defaultValues: initialData,
   });
 
-  console.log(form);
-
   const onSubmit = async (data) => {
     try {
       setLoading(true);
