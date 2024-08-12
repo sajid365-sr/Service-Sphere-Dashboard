@@ -4,15 +4,14 @@ import { NextResponse } from "next/server";
 
 /* ====================== GET INDIVIDUAL BILLBOARD ====================== */
 export async function GET(req, { params }) {
-  console.log("This is billboard Id:", params?.billBoardId);
   try {
-    if (!params.billBoardId) {
+    if (!params.billboardId) {
       return new NextResponse("Billboard id is required", { status: 400 });
     }
 
     const billboard = await prismaDb.billboard.findUnique({
       where: {
-        id: params.billBoardId,
+        id: params.billboardId,
       },
     });
 
@@ -25,7 +24,6 @@ export async function GET(req, { params }) {
 
 /* ====================== UPDATE INDIVIDUAL BILLBOARD ====================== */
 export async function PATCH(req, { params }) {
-  console.log(params.billBoardId);
   try {
     const { userId } = auth();
     const { label, imageUrl } = await req.json();

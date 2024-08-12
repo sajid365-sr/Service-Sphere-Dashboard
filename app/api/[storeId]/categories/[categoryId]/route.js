@@ -13,6 +13,9 @@ export async function GET(req, { params }) {
       where: {
         id: params.categoryId,
       },
+      include: {
+        billBoard: true,
+      },
     });
 
     return NextResponse.json(category);

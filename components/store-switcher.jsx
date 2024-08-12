@@ -1,6 +1,5 @@
 "use client";
 
-import { StoreModal } from "@/components/modals/store-modal";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import {
@@ -29,7 +28,6 @@ import { useDispatch } from "react-redux";
 import { onOpen } from "@/redux/features/modalSlice";
 
 const StoreSwitcher = ({ className, items = [] }) => {
-  const storeModal = StoreModal();
   const params = useParams();
   const router = useRouter();
 

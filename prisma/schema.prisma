@@ -39,9 +39,9 @@ model Category {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   storeId     String    @db.ObjectId
   store       Store     @relation("StoreToCategory", fields: [storeId], references: [id])
-  billBoard   Billboard @relation(fields: [billboardId], references: [id])
   products    Product[] @relation("CategoryToProduct")
   billboardId String    @db.ObjectId
+  billBoard   Billboard @relation(fields: [billboardId], references: [id])
   name        String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt

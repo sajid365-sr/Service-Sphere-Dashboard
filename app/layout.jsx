@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 import { ReduxProvider } from "@/providers/redux-provider";
 import { ToasterProvider } from "@/providers/toast-provider";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 export const metadata = {
   title: "Service Sphere",
@@ -16,9 +17,11 @@ export default function RootLayout({ children }) {
       <ReduxProvider>
         <html lang="en">
           <body>
-            {children}
-            <ModalProvider />
-            <ToasterProvider />
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              {children}
+              <ModalProvider />
+              <ToasterProvider />
+            </ThemeProvider>
           </body>
         </html>
       </ReduxProvider>

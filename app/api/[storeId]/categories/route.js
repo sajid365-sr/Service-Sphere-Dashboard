@@ -56,10 +56,7 @@ export async function GET(req, { params }) {
 
     const categories = await prismaDb.category.findMany({
       where: {
-        id: params.storeId,
-      },
-      include: {
-        billboards: true,
+        storeId: params.storeId,
       },
     });
 

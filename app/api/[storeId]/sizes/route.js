@@ -56,7 +56,7 @@ export async function GET(req, { params }) {
 
     const sizes = await prismaDb.size.findMany({
       where: {
-        id: params.storeId,
+        storeId: params.storeId,
       },
     });
 

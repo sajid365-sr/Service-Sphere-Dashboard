@@ -14,8 +14,6 @@ const CategoryClient = ({ data }) => {
   const router = useRouter();
   const params = useParams();
 
-  console.log(data);
-
   return (
     <>
       <div className="flex items-center justify-between">

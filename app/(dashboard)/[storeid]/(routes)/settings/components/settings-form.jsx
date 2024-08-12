@@ -105,7 +105,7 @@ const SettingsFrom = ({ initialData }) => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Store Name</FormLabel>
                   <FormControl>
                     <Input
                       disabled={loading}
