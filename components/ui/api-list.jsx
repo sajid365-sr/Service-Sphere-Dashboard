@@ -9,6 +9,8 @@ const ApiList = ({ entityName, entityIdName }) => {
   const params = useParams();
   const origin = UseOrigin();
 
+  console.log(origin);
+
   const baseUrl = `${origin}/api/${params.storeId}`;
 
   return (
