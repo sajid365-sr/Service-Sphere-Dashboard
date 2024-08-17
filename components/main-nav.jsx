@@ -9,46 +9,48 @@ const MainNav = ({ className, ...props }) => {
   const pathName = usePathname();
   const params = useParams();
 
+  const storeId = params.storeId || "66771fa4b7be541c0de674ae";
+
   const routes = [
     {
-      href: `/${params.storeId}`,
+      href: `/${storeId}`,
       label: "Overview",
-      active: pathName === `/${params.storeId}`,
+      active: pathName === `/${storeId}`,
     },
     {
-      href: `/${params.storeId}/billboards`,
+      href: `/${storeId}/billboards`,
       label: "Billboards",
-      active: pathName === `/${params.storeId}/billboards`,
+      active: pathName === `/${storeId}/billboards`,
     },
     {
-      href: `/${params.storeId}/categories`,
+      href: `/${storeId}/categories`,
       label: "Categories",
-      active: pathName === `/${params.storeId}/categories`,
+      active: pathName === `/${storeId}/categories`,
     },
     {
-      href: `/${params.storeId}/sizes`,
+      href: `/${storeId}/sizes`,
       label: "Sizes",
-      active: pathName === `/${params.storeId}/sizes`,
+      active: pathName === `/${storeId}/sizes`,
     },
     {
-      href: `/${params.storeId}/colors`,
+      href: `/${storeId}/colors`,
       label: "Colors",
-      active: pathName === `/${params.storeId}/colors`,
+      active: pathName === `/${storeId}/colors`,
     },
     {
-      href: `/${params.storeId}/products`,
+      href: `/${storeId}/products`,
       label: "Products",
-      active: pathName === `/${params.storeId}/products`,
+      active: pathName === `/${storeId}/products`,
     },
     {
-      href: `/${params.storeId}/orders`,
+      href: `/${storeId}/orders`,
       label: "Orders",
-      active: pathName === `/${params.storeId}/orders`,
+      active: pathName === `/${storeId}/orders`,
     },
     {
-      href: `/${params.storeId}/settings`,
+      href: `/${storeId}/settings`,
       label: "Settings",
-      active: pathName === `/${params.storeId}/settings`,
+      active: pathName === `/${storeId}/settings`,
     },
   ];
 

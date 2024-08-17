@@ -3,7 +3,7 @@ import prismaDb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-export default async function DashboardLayout({ children, params }) {
+const DashboardLayout = async ({ children, params }) => {
   const { userId } = auth();
 
   if (!userId) {
@@ -28,4 +28,6 @@ export default async function DashboardLayout({ children, params }) {
       </div>
     </>
   );
-}
+};
+
+export default DashboardLayout;
