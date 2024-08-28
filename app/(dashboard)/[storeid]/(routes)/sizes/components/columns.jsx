@@ -15,7 +15,7 @@ export const sizeColumns = [
   },
   {
     accessorKey: "createdAt",
-    header: "Date",
+    header: "Created At",
   },
   {
     header: "Action",

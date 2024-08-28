@@ -18,6 +18,7 @@ export async function GET(req, { params }) {
         category: true,
         size: true,
         color: true,
+        collection: true,
       },
     });
 
@@ -38,6 +39,7 @@ export async function PATCH(req, { params }) {
       categoryId,
       colorId,
       sizeId,
+      collectionId,
       images,
       isFeatured,
       isArchived,
@@ -64,6 +66,9 @@ export async function PATCH(req, { params }) {
     if (!sizeId) {
       return new NextResponse("Size id is required", { status: 400 });
     }
+    if (!collectionId) {
+      return new NextResponse("Collection id is required", { status: 400 });
+    }
     if (!params.productId) {
       return new NextResponse("Product id is required", { status: 400 });
     }
@@ -89,6 +94,7 @@ export async function PATCH(req, { params }) {
         categoryId,
         colorId,
         sizeId,
+        collectionId,
         isFeatured,
         isArchived,
         images: {

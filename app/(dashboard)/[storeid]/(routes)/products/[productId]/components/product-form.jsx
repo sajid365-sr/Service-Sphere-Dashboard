@@ -33,7 +33,13 @@ import AlertModal from "@/components/modals/alert-modal";
 import ImageUpload from "@/components/ui/image-upload";
 import { Checkbox } from "@/components/ui/checkbox";
 
-const ProductForm = ({ initialData, categories, sizes, colors }) => {
+const ProductForm = ({
+  initialData,
+  categories,
+  sizes,
+  colors,
+  collections,
+}) => {
   const params = useParams();
   const router = useRouter();
 
@@ -47,6 +53,7 @@ const ProductForm = ({ initialData, categories, sizes, colors }) => {
     categoryId: z.string().min(1),
     colorId: z.string().min(1),
     sizeId: z.string().min(1),
+    collectionId: z.string().min(1),
     isFeatured: z.boolean().default(false).optional(),
     isArchived: z.boolean().default(false).optional(),
   });
@@ -286,6 +293,39 @@ const ProductForm = ({ initialData, categories, sizes, colors }) => {
                       {colors.map((color) => (
                         <SelectItem key={color.id} value={color.id}>
                           {color.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {/* ================== COLLECTION =================== */}
+            <FormField
+              control={form.control}
+              name="collectionId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Collection</FormLabel>
+
+                  <Select
+                    disabled={loading}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue
+                        defaultValue={field.value}
+                        placeholder="Set a collection"
+                      />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {collections.map((collection) => (
+                        <SelectItem key={collection.id} value={collection.id}>
+                          {collection.name}
                         </SelectItem>
                       ))}
                     </SelectContent>

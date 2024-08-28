@@ -1,9 +1,15 @@
 "use client";
 
+import toast from "react-hot-toast";
 import CellAction from "./cell-action";
+import { Copy } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
+const onCopy = (value) => {
+  navigator.clipboard.writeText(value);
+  toast.success("Color code copied successfully.");
+};
+
 export const colorColumn = [
   {
     accessorKey: "name",
@@ -11,20 +17,29 @@ export const colorColumn = [
   },
   {
     accessorKey: "value",
-    header: "Value",
+    header: "Color",
     cell: ({ row }) => (
       <div className="flex items-center gap-x-2">
-        {row.original.value}
-        <div
+        <span
           className="h-6 w-6 rounded-full border"
           style={{ backgroundColor: row.original.value }}
         />
+        <span>{row.original.value}</span>
+
+        <Button
+          onClick={() => onCopy(row.original.value)}
+          title="copy color code"
+          variant="outline"
+          className="p-3"
+        >
+          <Copy className="h-4 w-4 " />
+        </Button>
       </div>
     ),
   },
   {
     accessorKey: "createdAt",
-    header: "Date",
+    header: "Created At",
   },
   {
     header: "Action",

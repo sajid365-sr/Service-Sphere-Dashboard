@@ -9,7 +9,7 @@ const MainNav = ({ className, ...props }) => {
   const pathName = usePathname();
   const params = useParams();
 
-  const storeId = params.storeId || "66771fa4b7be541c0de674ae";
+  const storeId = params.storeId;
 
   const routes = [
     {
@@ -41,6 +41,11 @@ const MainNav = ({ className, ...props }) => {
       href: `/${storeId}/products`,
       label: "Products",
       active: pathName === `/${storeId}/products`,
+    },
+    {
+      href: `/${storeId}/collections`,
+      label: "Collections",
+      active: pathName === `/${storeId}/collections`,
     },
     {
       href: `/${storeId}/orders`,

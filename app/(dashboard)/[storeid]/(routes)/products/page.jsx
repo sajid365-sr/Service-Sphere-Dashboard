@@ -12,11 +12,14 @@ const ProductPage = async ({ params }) => {
       category: true,
       size: true,
       color: true,
+      collection: true,
     },
     orderBy: {
       createdAt: "desc",
     },
   });
+
+  console.log(products);
 
   const formattedProducts = products.map((item) => ({
     id: item.id,
@@ -26,7 +29,8 @@ const ProductPage = async ({ params }) => {
     price: formatter.format(item.price),
     category: item.category.name,
     size: item.size.name,
-    color: item.color.value,
+    color: item.color.value + `(${item.color.name})`,
+    collection: item.collection.name,
     createdAt: format(item.createdAt, "MMMM do, yyyy"),
   }));
 

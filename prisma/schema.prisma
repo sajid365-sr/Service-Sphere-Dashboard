@@ -9,17 +9,18 @@ datasource db {
 }
 
 model Store {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
   name       String
   userId     String
-  billboards Billboard[] @relation("StoreToBillboard")
-  categories Category[]  @relation("StoreToCategory")
-  sizes      Size[]      @relation("StoreToSize")
-  products   Product[]   @relation("StoreToProduct")
-  colors     Color[]     @relation("StoreToColor")
-  orders     Order[]     @relation("StoreToOrder")
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  billboards Billboard[]  @relation("StoreToBillboard")
+  categories Category[]   @relation("StoreToCategory")
+  sizes      Size[]       @relation("StoreToSize")
+  products   Product[]    @relation("StoreToProduct")
+  colors     Color[]      @relation("StoreToColor")
+  orders     Order[]      @relation("StoreToOrder")
+  collection Collection[] @relation("StoreToCollection")
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
 }
 
 model Billboard {
@@ -77,28 +78,31 @@ model Color {
 }
 
 model Product {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  storeId    String      @db.ObjectId
-  store      Store       @relation("StoreToProduct", fields: [storeId], references: [id])
-  categoryId String      @db.ObjectId
-  category   Category    @relation("CategoryToProduct", fields: [categoryId], references: [id])
-  name       String
-  price      Float
-  isFeatured Boolean     @default(false)
-  isArchived Boolean     @default(false)
-  sizeId     String      @db.ObjectId
-  size       Size        @relation(fields: [sizeId], references: [id])
-  colorId    String      @db.ObjectId
-  color      Color       @relation(fields: [colorId], references: [id])
-  images     Image[]
-  orderItems OrderItem[]
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  storeId      String      @db.ObjectId
+  store        Store       @relation("StoreToProduct", fields: [storeId], references: [id])
+  categoryId   String      @db.ObjectId
+  category     Category    @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  collectionId String      @db.ObjectId
+  collection   Collection  @relation(fields: [collectionId], references: [id])
+  name         String
+  price        Float
+  isFeatured   Boolean     @default(false)
+  isArchived   Boolean     @default(false)
+  sizeId       String      @db.ObjectId
+  size         Size        @relation(fields: [sizeId], references: [id])
+  colorId      String      @db.ObjectId
+  color        Color       @relation(fields: [colorId], references: [id])
+  images       Image[]
+  orderItems   OrderItem[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 
   @@index([storeId])
   @@index([sizeId])
   @@index([colorId])
   @@index([categoryId])
+  @@index([collectionId])
 }
 
 model Image {
@@ -110,6 +114,19 @@ model Image {
   updatedAt DateTime @updatedAt
 
   @@index([productId])
+}
+
+model Collection {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  imageUrl  String
+  products  Product[]
+  storeId   String    @db.ObjectId
+  store     Store     @relation("StoreToCollection", fields: [storeId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([storeId])
 }
 
 model Order {

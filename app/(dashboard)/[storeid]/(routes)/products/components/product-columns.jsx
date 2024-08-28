@@ -30,6 +30,10 @@ export const productColumns = [
     header: "Size",
   },
   {
+    accessorKey: "collection",
+    header: "Collection",
+  },
+  {
     accessorKey: "color",
     header: "Color",
     cell: ({ row }) => (
